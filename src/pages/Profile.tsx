@@ -10,6 +10,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { toast } from "@/hooks/use-toast";
 import { Loader2, Camera, User } from "lucide-react";
+import PasswordChangeForm from "@/components/PasswordChangeForm";
 
 interface Profile {
   username: string;
@@ -144,93 +145,99 @@ const Profile = () => {
             Your Profile
           </h1>
 
-          <div className="flex flex-col md:flex-row gap-8">
-            <Card className="w-full md:w-1/3">
-              <CardHeader>
-                <CardTitle className="text-center">Profile Picture</CardTitle>
-              </CardHeader>
-              <CardContent className="flex flex-col items-center">
-                <Avatar className="h-32 w-32 mb-4">
-                  {profile.avatar_url ? (
-                    <AvatarImage src={profile.avatar_url} alt={profile.full_name} />
-                  ) : (
-                    <AvatarFallback className="bg-madhwa-100 text-madhwa-600 text-2xl">
-                      <User className="h-12 w-12" />
-                    </AvatarFallback>
-                  )}
-                </Avatar>
-                <p className="text-sm text-muted-foreground text-center mb-4">
-                  Profile photo upload feature coming soon
-                </p>
-                <Button
-                  variant="outline"
-                  className="w-full flex items-center gap-2"
-                  disabled
-                >
-                  <Camera className="h-4 w-4" />
-                  Upload Photo
-                </Button>
-              </CardContent>
-            </Card>
-
-            <Card className="w-full md:w-2/3">
-              <CardHeader>
-                <CardTitle>Account Information</CardTitle>
-                <CardDescription>
-                  Update your account information here
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="email">Email Address</Label>
-                  <Input
-                    id="email"
-                    value={user.email || ""}
-                    disabled
-                    className="bg-muted"
-                  />
-                  <p className="text-xs text-muted-foreground">
-                    Your email address cannot be changed
+          <div className="flex flex-col gap-8">
+            <div className="flex flex-col md:flex-row gap-8">
+              <Card className="w-full md:w-1/3">
+                <CardHeader>
+                  <CardTitle className="text-center">Profile Picture</CardTitle>
+                </CardHeader>
+                <CardContent className="flex flex-col items-center">
+                  <Avatar className="h-32 w-32 mb-4">
+                    {profile.avatar_url ? (
+                      <AvatarImage src={profile.avatar_url} alt={profile.full_name} />
+                    ) : (
+                      <AvatarFallback className="bg-madhwa-100 text-madhwa-600 text-2xl">
+                        <User className="h-12 w-12" />
+                      </AvatarFallback>
+                    )}
+                  </Avatar>
+                  <p className="text-sm text-muted-foreground text-center mb-4">
+                    Profile photo upload feature coming soon
                   </p>
-                </div>
+                  <Button
+                    variant="outline"
+                    className="w-full flex items-center gap-2"
+                    disabled
+                  >
+                    <Camera className="h-4 w-4" />
+                    Upload Photo
+                  </Button>
+                </CardContent>
+              </Card>
 
-                <div className="space-y-2">
-                  <Label htmlFor="username">Username</Label>
-                  <Input
-                    id="username"
-                    value={profile.username}
-                    onChange={(e) => setProfile({ ...profile, username: e.target.value })}
-                    placeholder="Choose a username"
-                  />
-                </div>
+              <Card className="w-full md:w-2/3">
+                <CardHeader>
+                  <CardTitle>Account Information</CardTitle>
+                  <CardDescription>
+                    Update your account information here
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="email">Email Address</Label>
+                    <Input
+                      id="email"
+                      value={user.email || ""}
+                      disabled
+                      className="bg-muted"
+                    />
+                    <p className="text-xs text-muted-foreground">
+                      Your email address cannot be changed
+                    </p>
+                  </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="fullName">Full Name</Label>
-                  <Input
-                    id="fullName"
-                    value={profile.full_name}
-                    onChange={(e) => setProfile({ ...profile, full_name: e.target.value })}
-                    placeholder="Your full name"
-                  />
-                </div>
-              </CardContent>
-              <CardFooter className="flex flex-col sm:flex-row gap-4 sm:justify-between">
-                <Button
-                  onClick={updateProfile}
-                  disabled={updating}
-                  className="w-full sm:w-auto bg-madhwa-600 hover:bg-madhwa-700"
-                >
-                  {updating ? "Saving..." : "Save Changes"}
-                </Button>
-                <Button
-                  variant="outline"
-                  onClick={signOut}
-                  className="w-full sm:w-auto text-destructive border-destructive hover:bg-destructive/10"
-                >
-                  Sign Out
-                </Button>
-              </CardFooter>
-            </Card>
+                  <div className="space-y-2">
+                    <Label htmlFor="username">Username</Label>
+                    <Input
+                      id="username"
+                      value={profile.username}
+                      onChange={(e) => setProfile({ ...profile, username: e.target.value })}
+                      placeholder="Choose a username"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="fullName">Full Name</Label>
+                    <Input
+                      id="fullName"
+                      value={profile.full_name}
+                      onChange={(e) => setProfile({ ...profile, full_name: e.target.value })}
+                      placeholder="Your full name"
+                    />
+                  </div>
+                </CardContent>
+                <CardFooter className="flex flex-col sm:flex-row gap-4 sm:justify-between">
+                  <Button
+                    onClick={updateProfile}
+                    disabled={updating}
+                    className="w-full sm:w-auto bg-madhwa-600 hover:bg-madhwa-700"
+                  >
+                    {updating ? "Saving..." : "Save Changes"}
+                  </Button>
+                  <Button
+                    variant="outline"
+                    onClick={signOut}
+                    className="w-full sm:w-auto text-destructive border-destructive hover:bg-destructive/10"
+                  >
+                    Sign Out
+                  </Button>
+                </CardFooter>
+              </Card>
+            </div>
+            
+            <div className="w-full">
+              <PasswordChangeForm />
+            </div>
           </div>
         </div>
       </div>
