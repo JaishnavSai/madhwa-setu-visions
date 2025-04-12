@@ -11,7 +11,7 @@ const TodayRitual = () => {
     name: "Ekadashi",
     details: "Ekadashi is the eleventh lunar day of each of the two lunar phases in a Hindu calendar month.",
     timing: "Sunrise to Sunset",
-    date: "April 11, 2025",
+    date: "April 12, 2025",
     restrictions: [
       "Fast from grains and beans",
       "Chant extra rounds of japa",
@@ -21,32 +21,40 @@ const TodayRitual = () => {
   };
 
   return (
-    <section className="py-16 px-4 relative">
+    <section className="py-20 px-4 relative">
       <div className="absolute inset-0 -z-10 bg-gradient-to-b from-white via-white to-madhwa-50/30 dark:from-madhwa-900 dark:via-madhwa-900 dark:to-madhwa-800/70"></div>
       
       <div className="container mx-auto">
         <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-8">
+          <div className="text-center mb-10">
             <span className="inline-block px-3 py-1 bg-madhwa-100 dark:bg-madhwa-700/50 text-madhwa-600 dark:text-madhwa-300 rounded-full text-sm font-medium mb-3">Daily Focus</span>
             <h2 className="font-serif text-3xl font-bold text-madhwa-700 dark:text-madhwa-300 mb-2">Today's Ritual Focus</h2>
             <p className="text-gray-600 dark:text-gray-400">Stay connected with your tradition every day</p>
           </div>
 
-          <Card className="border-madhwa-200 dark:border-madhwa-700 shadow-lg overflow-hidden backdrop-blur-sm bg-white/90 dark:bg-madhwa-800/80 transition-all hover:shadow-xl">
-            <CardHeader className="bg-madhwa-100/70 dark:bg-madhwa-700/30 pb-3">
-              <div className="flex justify-between items-center">
-                <div className="flex items-center gap-2 text-madhwa-500 dark:text-madhwa-300">
-                  <Calendar className="h-4 w-4" />
-                  <span className="text-sm font-medium">{todayRitual.date}</span>
-                </div>
-                <Button variant="ghost" size="sm" className="text-madhwa-500 dark:text-madhwa-300 hover:bg-madhwa-200/50 dark:hover:bg-madhwa-600/50">
-                  <Info className="h-4 w-4 mr-1" />
-                  <span>Info</span>
-                </Button>
+          <Card className="border-madhwa-200 dark:border-madhwa-700 shadow-xl overflow-hidden backdrop-blur-sm bg-white/90 dark:bg-madhwa-800/80 transition-all hover:shadow-2xl">
+            <div className="relative">
+              <div className="absolute inset-0 bg-black">
+                <div 
+                  className="w-full h-full opacity-60 bg-cover bg-center"
+                  style={{ backgroundImage: "url('https://images.unsplash.com/photo-1531607225846-c2357edd0f41?q=80')" }}
+                ></div>
               </div>
-              <CardTitle className="text-2xl mt-2 text-madhwa-700 dark:text-madhwa-300">{todayRitual.name}</CardTitle>
-              <CardDescription className="text-gray-600 dark:text-gray-400">{todayRitual.details}</CardDescription>
-            </CardHeader>
+              <CardHeader className="relative z-10 backdrop-blur-sm bg-black/30 pb-3">
+                <div className="flex justify-between items-center">
+                  <div className="flex items-center gap-2 text-white">
+                    <Calendar className="h-4 w-4" />
+                    <span className="text-sm font-medium">{todayRitual.date}</span>
+                  </div>
+                  <Button variant="ghost" size="sm" className="text-white hover:bg-white/10">
+                    <Info className="h-4 w-4 mr-1" />
+                    <span>Info</span>
+                  </Button>
+                </div>
+                <CardTitle className="text-3xl mt-2 text-white font-serif">{todayRitual.name}</CardTitle>
+                <CardDescription className="text-gray-200">{todayRitual.details}</CardDescription>
+              </CardHeader>
+            </div>
             <CardContent className="pt-6">
               <div className="flex items-center gap-2 text-madhwa-600 dark:text-madhwa-400 mb-4">
                 <Clock className="h-5 w-5" />
