@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -8,26 +8,6 @@ interface LayoutProps {
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
-  const [isScrolled, setIsScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 10) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-    };
-
-    // Add scroll event listener
-    window.addEventListener("scroll", handleScroll);
-    
-    // Clean up
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
   return (
     <div className="flex flex-col min-h-screen relative">
       {/* Fixed background with Buddha silhouette */}
@@ -38,11 +18,11 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             style={{ backgroundImage: "url('/lovable-uploads/2da7c2d4-ffb3-4fe3-ba73-cf59ad360328.png')" }}
           />
         </div>
-        <div className="absolute inset-0 bg-gradient-to-b from-white to-madhwa-50/50 dark:from-madhwa-900 dark:to-madhwa-800 pointer-events-none"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-[#FAF7F2] to-[#FAF7F2]/50 dark:from-gray-900 dark:to-gray-800 pointer-events-none"></div>
       </div>
       
-      {/* Navbar with hide on scroll */}
-      <div className={`fixed top-0 w-full z-50 transition-transform duration-300 ${isScrolled ? '-translate-y-full' : 'translate-y-0'}`}>
+      {/* Navbar is now always visible */}
+      <div className="w-full z-50">
         <Navbar />
       </div>
       

@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { 
@@ -7,11 +7,7 @@ import {
   X, 
   Sun, 
   Moon, 
-  Calendar, 
   Search, 
-  Book, 
-  HelpCircle,
-  MessageSquare,
   User,
   LogOut,
   ShoppingBag
@@ -29,35 +25,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const [isScrolling, setIsScrolling] = useState(false);
   const { user, signOut } = useAuth();
-  const timerRef = useRef<number | null>(null);
-
-  useEffect(() => {
-    const handleMouseMove = () => {
-      setIsScrolling(true);
-      
-      // Clear previous timer if it exists
-      if (timerRef.current !== null) {
-        clearTimeout(timerRef.current);
-      }
-      
-      // Set new timer
-      timerRef.current = window.setTimeout(() => {
-        setIsScrolling(false);
-      }, 3000);
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      // Clean up timer on unmount
-      if (timerRef.current !== null) {
-        clearTimeout(timerRef.current);
-      }
-    };
-  }, []);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -79,8 +47,8 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className={`w-full bg-black/90 backdrop-blur-md transition-opacity duration-300 ${isScrolling ? 'opacity-100' : 'opacity-0'}`}>
-      <div className="container mx-auto py-3 px-4 md:px-6 flex items-center justify-between">
+    <nav className="w-full bg-black shadow-lg z-50">
+      <div className="container mx-auto py-4 px-4 md:px-6 flex items-center justify-between">
         {/* Mobile Menu Button */}
         <div className="flex md:hidden">
           <Button
@@ -104,7 +72,7 @@ const Navbar = () => {
             <Link
               key={link.name}
               to={link.path}
-              className="text-sm font-medium text-white hover:text-madhwa-300 transition-colors"
+              className="text-base font-medium text-white hover:text-gray-300 transition-colors"
             >
               {link.name}
             </Link>
@@ -113,8 +81,8 @@ const Navbar = () => {
 
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2 group absolute left-1/2 transform -translate-x-1/2">
-          <span className="font-serif text-xl font-semibold text-white tracking-widest">
-            MADHWASETU...
+          <span className="font-serif text-2xl font-semibold text-white tracking-widest">
+            MADHWASETU
           </span>
         </Link>
 
@@ -148,29 +116,29 @@ const Navbar = () => {
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="relative h-8 w-8 rounded-full overflow-hidden">
                   <Avatar>
-                    <AvatarFallback className="bg-madhwa-600 text-white">
+                    <AvatarFallback className="bg-gray-800 text-white">
                       {user.email ? user.email.substring(0, 2).toUpperCase() : "U"}
                     </AvatarFallback>
                   </Avatar>
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-56">
+              <DropdownMenuContent align="end" className="w-56 bg-black text-white border-gray-800">
                 <div className="flex items-center justify-start gap-2 p-2">
                   <div className="flex flex-col space-y-0.5 leading-none">
                     <p className="font-medium text-sm">{user.email}</p>
                   </div>
                 </div>
-                <DropdownMenuSeparator />
+                <DropdownMenuSeparator className="bg-gray-800" />
                 <DropdownMenuItem asChild>
-                  <Link to="/profile" className="cursor-pointer flex w-full items-center">
+                  <Link to="/profile" className="cursor-pointer flex w-full items-center hover:bg-gray-800">
                     <User className="mr-2 h-4 w-4" />
                     Profile
                   </Link>
                 </DropdownMenuItem>
-                <DropdownMenuSeparator />
+                <DropdownMenuSeparator className="bg-gray-800" />
                 <DropdownMenuItem 
                   onClick={signOut}
-                  className="text-red-500 focus:text-red-500 cursor-pointer"
+                  className="text-red-400 focus:text-red-400 cursor-pointer hover:bg-gray-800"
                 >
                   <LogOut className="mr-2 h-4 w-4" />
                   Sign out
@@ -193,13 +161,13 @@ const Navbar = () => {
 
       {/* Mobile Menu Dropdown */}
       {isOpen && (
-        <div className="md:hidden absolute top-16 inset-x-0 z-50 bg-black border-b border-gray-700 animate-fade-in shadow-lg">
+        <div className="md:hidden absolute inset-x-0 z-50 bg-black border-b border-gray-800 animate-fade-in shadow-lg">
           <div className="py-4 px-4 space-y-1">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 to={link.path}
-                className="flex items-center gap-3 py-3 px-4 rounded-lg text-white hover:bg-white/10 transition-colors"
+                className="flex items-center gap-3 py-3 px-4 rounded-lg text-white hover:bg-gray-800 transition-colors"
                 onClick={() => setIsOpen(false)}
               >
                 <span>{link.name}</span>
@@ -210,14 +178,14 @@ const Navbar = () => {
               <>
                 <Link
                   to="/profile"
-                  className="flex items-center gap-3 py-3 px-4 rounded-lg text-white hover:bg-white/10 transition-colors"
+                  className="flex items-center gap-3 py-3 px-4 rounded-lg text-white hover:bg-gray-800 transition-colors"
                   onClick={() => setIsOpen(false)}
                 >
                   <User className="h-5 w-5" />
                   <span>Profile</span>
                 </Link>
                 <button
-                  className="flex items-center gap-3 py-3 px-4 rounded-lg text-red-400 hover:bg-red-900/20 transition-colors w-full text-left"
+                  className="flex items-center gap-3 py-3 px-4 rounded-lg text-red-400 hover:bg-gray-800 transition-colors w-full text-left"
                   onClick={() => {
                     signOut();
                     setIsOpen(false);
@@ -230,7 +198,7 @@ const Navbar = () => {
             ) : (
               <Link
                 to="/auth"
-                className="flex items-center gap-3 py-3 px-4 rounded-lg text-white hover:bg-white/10 transition-colors"
+                className="flex items-center gap-3 py-3 px-4 rounded-lg text-white hover:bg-gray-800 transition-colors"
                 onClick={() => setIsOpen(false)}
               >
                 <User className="h-5 w-5" />
