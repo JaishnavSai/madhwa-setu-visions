@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { 
@@ -31,13 +31,19 @@ const Navbar = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isScrolling, setIsScrolling] = useState(false);
   const { user, signOut } = useAuth();
+  const timerRef = useRef<number | null>(null);
 
   useEffect(() => {
     const handleMouseMove = () => {
       setIsScrolling(true);
-      clearTimeout(timer);
       
-      const timer = setTimeout(() => {
+      // Clear previous timer if it exists
+      if (timerRef.current !== null) {
+        clearTimeout(timerRef.current);
+      }
+      
+      // Set new timer
+      timerRef.current = window.setTimeout(() => {
         setIsScrolling(false);
       }, 3000);
     };
@@ -46,6 +52,10 @@ const Navbar = () => {
     
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
+      // Clean up timer on unmount
+      if (timerRef.current !== null) {
+        clearTimeout(timerRef.current);
+      }
     };
   }, []);
 
